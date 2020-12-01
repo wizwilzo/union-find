@@ -1,0 +1,31 @@
+class UnionFind {
+    private int[] id;
+    private int numOfGroups;
+    private int size;
+    public UnionFind(int size) {
+        this.size=size;
+        numOfGroups = size;
+        id = new int[size];
+        for (int i = 0; i < size; i++) {
+            id[i] = i;
+        }
+    }
+    public int getNumOfGroups() {
+        return numOfGroups;
+    }
+    public int find(int a) {
+    if (id[a] != a) {
+        //recursive path compression
+        id[a] = find(id[a]);
+            
+    }
+    return id[a];
+}
+    public void union(int a, int b) {
+        int root1 = find(a);
+        int root2 = find(b);
+        if (root1 == root2) return;
+        id[root1] = root2;
+        numOfGroups--;
+    }
+}
